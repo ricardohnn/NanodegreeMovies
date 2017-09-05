@@ -1,5 +1,8 @@
 package com.rdzero.popularmovies.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -7,7 +10,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class ResultsItem {
+public class ResultsItem implements Parcelable {
 
     @SerializedName("overview")
     private String overview;
@@ -37,7 +40,7 @@ public class ResultsItem {
     private String releaseDate;
 
     @SerializedName("vote_average")
-    private double voteAverage;
+    private int voteAverage;
 
     @SerializedName("popularity")
     private double popularity;
@@ -123,11 +126,11 @@ public class ResultsItem {
         return releaseDate;
     }
 
-    public void setVoteAverage(double voteAverage) {
+    public void setVoteAverage(int voteAverage) {
         this.voteAverage = voteAverage;
     }
 
-    public double getVoteAverage() {
+    public int getVoteAverage() {
         return voteAverage;
     }
 
@@ -183,4 +186,57 @@ public class ResultsItem {
                         ",vote_count = '" + voteCount + '\'' +
                         "}";
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeString(overview);
+        dest.writeString(originalLanguage);
+        dest.writeString(originalTitle);
+        dest.writeInt(video ? 1 : 0);
+        dest.writeString(title);
+        dest.writeList(genreIds);
+        dest.writeString(posterPath);
+        dest.writeString(backdropPath);
+        dest.writeString(releaseDate);
+        dest.writeInt(voteAverage);
+        dest.writeDouble(popularity);
+        dest.writeInt(id);
+        dest.writeInt(adult ? 1 : 0);
+        dest.writeInt(voteCount);
+    }
+
+    protected ResultsItem(Parcel in) {
+        this.overview = in.readString();
+        this.originalLanguage = in.readString();
+        this.originalTitle = in.readString();
+        this.video = (in.readInt() == 0 ? false : true);
+        this.title = in.readString();
+        in.readList(this.genreIds,null);
+        this.posterPath = in.readString();
+        this.backdropPath = in.readString();
+        this.releaseDate = in.readString();
+        this.voteAverage = in.readInt();
+        this.popularity = in.readDouble();
+        this.id = in.readInt();
+        this.adult = (in.readInt() == 0 ? false : true);
+        this.voteCount = in.readInt();
+    }
+
+    public static final Parcelable.Creator<ResultsItem>
+            CREATOR = new Parcelable.Creator<ResultsItem>() {
+        @Override
+        public ResultsItem createFromParcel(Parcel in) {
+            return new ResultsItem(in);
+        }
+
+        @Override
+        public ResultsItem[] newArray(int size) {
+            return new ResultsItem[size];
+        }
+    };
 }
