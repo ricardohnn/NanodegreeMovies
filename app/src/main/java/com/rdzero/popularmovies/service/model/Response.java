@@ -1,4 +1,4 @@
-package com.rdzero.popularmovies.data;
+package com.rdzero.popularmovies.service.model;
 
 import java.util.List;
 

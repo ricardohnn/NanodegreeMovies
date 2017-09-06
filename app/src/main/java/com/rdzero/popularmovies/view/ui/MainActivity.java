@@ -1,4 +1,4 @@
-package com.rdzero.popularmovies.activities;
+package com.rdzero.popularmovies.view.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
