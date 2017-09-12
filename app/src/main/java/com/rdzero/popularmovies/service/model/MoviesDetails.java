@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class ResultsItem implements Parcelable {
+public class MoviesDetails implements Parcelable {
 
     @SerializedName("overview")
     private String overview;
@@ -169,7 +169,7 @@ public class ResultsItem implements Parcelable {
     @Override
     public String toString() {
         return
-                "ResultsItem{" +
+                "MoviesDetails{" +
                         "overview = '" + overview + '\'' +
                         ",original_language = '" + originalLanguage + '\'' +
                         ",original_title = '" + originalTitle + '\'' +
@@ -210,7 +210,7 @@ public class ResultsItem implements Parcelable {
         dest.writeInt(voteCount);
     }
 
-    protected ResultsItem(Parcel in) {
+    protected MoviesDetails(Parcel in) {
         this.overview = in.readString();
         this.originalLanguage = in.readString();
         this.originalTitle = in.readString();
@@ -227,16 +227,16 @@ public class ResultsItem implements Parcelable {
         this.voteCount = in.readInt();
     }
 
-    public static final Parcelable.Creator<ResultsItem>
-            CREATOR = new Parcelable.Creator<ResultsItem>() {
+    public static final Parcelable.Creator<MoviesDetails>
+            CREATOR = new Parcelable.Creator<MoviesDetails>() {
         @Override
-        public ResultsItem createFromParcel(Parcel in) {
-            return new ResultsItem(in);
+        public MoviesDetails createFromParcel(Parcel in) {
+            return new MoviesDetails(in);
         }
 
         @Override
-        public ResultsItem[] newArray(int size) {
-            return new ResultsItem[size];
+        public MoviesDetails[] newArray(int size) {
+            return new MoviesDetails[size];
         }
     };
 }

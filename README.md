@@ -37,6 +37,13 @@ My classes were created, but I noticed that the detail of each movie will be pas
 [Parcelable vs Serializable][PCLBXSRLB]<br>
 [Parcelable reference][PCLB]
 
+Implementing the architecture based on: [LiveData + ViewModel - part 1][LVDTVMP1]<br>
+I liked how the folder/logics structure was developed on this example, so I will try to always adapt the next projects based on this. Also I find quite wrong to add @query for the API key, so I found a better way to add the key in every request:<br>
+[OKHTTP reference][OKHTTP]<br>
+https://futurestud.io/tutorials/retrofit-2-how-to-add-query-parameters-to-every-request<br>
+http://www.vogella.com/tutorials/Retrofit/article.html
+
+
 ## Updates
 
 [09/06] <sup>1</sup>
@@ -48,11 +55,13 @@ My classes were created, but I noticed that the detail of each movie will be pas
   * [MVP code ref][MVPCODEREF] - For MVP and MVP + frameworks examples
 * Change of hearts was invoked... MVVM! ViewModel... really Google?
   * [Android Application Architecture][ANDAPPARCH]
+  * [Adding Android Architecture Components][ADDAAC]
   * [LiveData + ViewModel - part 1][LVDTVMP1]
   * [LiveData + Retrofit + Dagger][LVDTRTFTDG]
   * [MVVM + Android Architecture Components][MVVMAAC]
 
-
+[ADDAAC]:<https://developer.android.com/topic/libraries/architecture/adding-components.html>
+[OKHTTP]:<http://square.github.io/okhttp/>
 [LOGO]:<https://is1-ssl.mzstatic.com/image/thumb/Purple111/v4/d9/d9/95/d9d995d3-e69b-1cce-3b29-68f2c8870b85/source/256x256bb.jpg>
 [UDNANO]:<https://docs.google.com/document/d/1ZlN1fUsCSKuInLECcJkslIqvpKlP7jWL2TP9m6UiA6I/pub?embedded=true>
 [TMDBAPI]:<https://developers.themoviedb.org/3/getting-started>

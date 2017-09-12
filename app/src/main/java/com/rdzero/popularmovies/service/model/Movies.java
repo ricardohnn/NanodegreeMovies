@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Response {
+public class Movies {
 
     @SerializedName("page")
     private int page;
@@ -15,7 +15,7 @@ public class Response {
     private int totalPages;
 
     @SerializedName("results")
-    private List<ResultsItem> results;
+    private List<MoviesDetails> results;
 
     @SerializedName("total_results")
     private int totalResults;
@@ -36,11 +36,11 @@ public class Response {
         return totalPages;
     }
 
-    public void setResults(List<ResultsItem> results) {
+    public void setResults(List<MoviesDetails> results) {
         this.results = results;
     }
 
-    public List<ResultsItem> getResults() {
+    public List<MoviesDetails> getResults() {
         return results;
     }
 
@@ -55,7 +55,7 @@ public class Response {
     @Override
     public String toString() {
         return
-                "Response{" +
+                "Movies{" +
                         "page = '" + page + '\'' +
                         ",total_pages = '" + totalPages + '\'' +
                         ",results = '" + results + '\'' +
