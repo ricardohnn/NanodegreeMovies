@@ -4,6 +4,7 @@ project.ext {
     arch = "1.0.0-alpha9"
     constraintLayout = "1.0.0-beta4"
     okhttp = "3.9.0"
+    recyclerview = "25.3.1"
     retrofit = "2.0.2"
 }
 
@@ -27,6 +28,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -41,6 +46,7 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
     compile "com.android.support.constraint:constraint-layout:$project.constraintLayout"
     compile "com.squareup.okhttp3:okhttp:$project.okhttp"
+    compile "com.android.support:recyclerview-v7:$project.recyclerview"
     compile "com.squareup.retrofit2:retrofit:$project.retrofit"
     compile "com.squareup.retrofit2:converter-gson:$project.retrofit"
     testCompile 'junit:junit:4.12'

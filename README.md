@@ -18,7 +18,6 @@ https://richardroseblog.wordpress.com/2016/05/29/hiding-secret-api-keys-from-git
 
 At this moment, I would be thinking about going all unit testing and ~~MVP implementing (or trying)~~<sup>1</sup> but I want to keep it fast to reach the last project ASAP, so let's skip that for now.
 
-#### Network Requests
 First question is... what should I use to make my life simple? And it seems a fair answer the following:<br>
 https://stackoverflow.com/questions/16902716/comparison-of-android-networking-libraries-okhttp-retrofit-and-volley
 
@@ -30,7 +29,7 @@ From the code review that my friends had, I believe I should give a try with Ret
 * [RxAndroid][RXAND] - This is not needed but... why not? Let's make things more retroactive
 * [Dagger 2][DGGR2] - This will solve some dependecies/cleaning code with injection
 
-I got a little lazy and people shared this plugin for POJO creation from json:<br>
+I got a little lazy and people shared this plugin for POJO creation from json<sup>2</sup>:<br>
 https://github.com/robohorse/RoboPOJOGenerator
 
 My classes were created, but I noticed that the detail of each movie will be passed from one activity to another, so let's make that parcelable:<br>
@@ -41,14 +40,15 @@ Implementing the architecture based on: [LiveData + ViewModel - part 1][LVDTVMP1
 I liked how the folder/logics structure was developed on this example, so I will try to always adapt the next projects based on this. Also I find quite wrong to add @query for the API key, so I found a better way to add the key in every request:<br>
 [OKHTTP reference][OKHTTP]<br>
 https://futurestud.io/tutorials/retrofit-2-how-to-add-query-parameters-to-every-request<br>
-http://www.vogella.com/tutorials/Retrofit/article.html
-
+http://www.vogella.com/tutorials/Retrofit/article.html<br>
+https://proandroiddev.com/android-architecture-components-mvvm-part-1-1bd138959535
 
 ## Updates
 
 [09/06] <sup>1</sup>
 * Guess who changed the idea of MVP implementation?<br>
-<tab>At this moment, since I have lost a lot of time trying to figure out how to use Retrofit2 + RxAndroid + Dagger2, I will waste some more time and figure out how to make a MVP implemented on this project (luckily is a small one). Here are some references:
+<tab>At this moment, since I have lost a lot of time trying to figure out how to use Retrofit2 + RxAndroid + Dagger2, I will waste some more time and figure out how to make a MVP implemented on this project (luckily is a small one).
+Here are some references:
   * [MVP Architecture][MVPARCH]
 * With all the information, I could say that the best sources are:
   * [Vogella Android][VOGAND] - For Android references in general
@@ -59,6 +59,18 @@ http://www.vogella.com/tutorials/Retrofit/article.html
   * [LiveData + ViewModel - part 1][LVDTVMP1]
   * [LiveData + Retrofit + Dagger][LVDTRTFTDG]
   * [MVVM + Android Architecture Components][MVVMAAC]
+  * [Android Architecture Components part 1][AACP1]
+  * [Android Architecture Components part 2][AACP2]
+
+[09/13] <sup>2</sup>
+* More MVVM references and studies, also about the Android Arch. Components usage and data binding in xml.
+  * http://www.zoftino.com/android-livedata-examples<br>
+  * https://proandroiddev.com/android-architecture-components-network-awareness-using-livedata-1a8d3749734d<br>
+  * http://www.vogella.com/tutorials/AndroidDatabinding/article.html<br>
+  * http://www.androidauthority.com/data-binding-in-android-709747/<br>
+  * [Android Architecture Components part 1][AACP1]<br>
+  * [Android Architecture Components part 2][AACP2]
+* That POJO plugin created a double field as int, which made the request fail. Keep in mind to always check if all values matches your expectations.
 
 [ADDAAC]:<https://developer.android.com/topic/libraries/architecture/adding-components.html>
 [OKHTTP]:<http://square.github.io/okhttp/>
@@ -78,5 +90,7 @@ http://www.vogella.com/tutorials/Retrofit/article.html
 [LVDTVMP1]:<https://proandroiddev.com/mvvm-architecture-viewmodel-and-livedata-part-1-604f50cda1>
 [LVDTRTFTDG]:<https://proandroiddev.com/mvvm-architecture-using-livedata-rxjava-and-new-dagger-android-injection-639837b1eb6c>
 [MVVMAAC]:<https://android.jlelse.eu/android-architecture-components-now-with-100-more-mvvm-11629a630125>
+[AACP1]:<https://riggaroo.co.za/android-architecture-components-looking-room-livedata-part-1/>
+[AACP2]:<https://riggaroo.co.za/android-architecture-components-looking-viewmodels-part-2/>
 [RDMEHELP1]:<https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet>
 [RDMEHELP2]:<https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md>

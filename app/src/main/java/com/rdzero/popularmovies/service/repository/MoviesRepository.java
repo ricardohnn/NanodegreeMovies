@@ -2,13 +2,12 @@ package com.rdzero.popularmovies.service.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
 
 import com.rdzero.popularmovies.BuildConfig;
 import com.rdzero.popularmovies.service.model.Movies;
-import com.rdzero.popularmovies.service.model.MoviesDetails;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -24,11 +23,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by ricardo.nakayama on 11/09/2017.
  */
 
-public class ProjectRepository {
+public class MoviesRepository {
     private TMDBService tmdbService;
-    private static ProjectRepository projectRepository;
+    private static MoviesRepository moviesRepository;
 
-    private ProjectRepository(){
+    private MoviesRepository(){
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -56,45 +55,28 @@ public class ProjectRepository {
         tmdbService = retrofit.create(TMDBService.class);
     }
 
-    public synchronized static ProjectRepository getInstance() {
+    public synchronized static MoviesRepository getInstance() {
         //TODO Use Dagger here
-        if (projectRepository == null) {
-            projectRepository = new ProjectRepository();
+        if (moviesRepository == null) {
+            moviesRepository = new MoviesRepository();
         }
-        return projectRepository;
+        return moviesRepository;
     }
 
-    public LiveData<List<Movies>> getMoviesList(String searchType) {
-        final MutableLiveData<List<Movies>> data = new MutableLiveData<>();
+    public LiveData<Movies> getMoviesList(String searchType) {
+        final MutableLiveData<Movies> data = new MutableLiveData<>();
 
-        tmdbService.getMoviesList(searchType).enqueue(new Callback<List<Movies>>() {
+        tmdbService.getMoviesList(searchType).enqueue(new Callback<Movies>() {
             @Override
-            public void onResponse(Call<List<Movies>> call, Response<List<Movies>> response) {
+            public void onResponse(Call<Movies> call, Response<Movies> response) {
+                Log.d("NAKA", response.body().toString());
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Movies>> call, Throwable t) {
+            public void onFailure(Call<Movies> call, Throwable t) {
                 // TODO Improve error handling
-                data.setValue(null);
-            }
-        });
-
-        return data;
-    }
-
-    public LiveData<MoviesDetails> getMovieDetails(String movieId) {
-        final MutableLiveData<MoviesDetails> data = new MutableLiveData<>();
-
-        tmdbService.getMovieDetails(movieId).enqueue(new Callback<MoviesDetails>() {
-            @Override
-            public void onResponse(Call<MoviesDetails> call, Response<MoviesDetails> response) {
-                data.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<MoviesDetails> call, Throwable t) {
-                // TODO Improve error handling
+                Log.d("NAKA", t.getMessage());
                 data.setValue(null);
             }
         });
