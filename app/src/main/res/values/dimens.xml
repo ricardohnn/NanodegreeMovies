@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movie_list_item_footer">68dp</dimen>
+    <dimen name="movie_list_item_text_padding">16dp</dimen>
+    <dimen name="movie_list_item_title_text_size">16sp</dimen>
+    <dimen name="movie_list_item_detail_text_size">12sp</dimen>
+</resources>

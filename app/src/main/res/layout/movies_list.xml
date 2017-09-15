@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable name="isLoading" type="boolean" />
+        <variable name="movies" type="com.rdzero.popularmovies.service.model.Movies" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.MainActivity">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movies_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="GridLayoutManager"/>
+
+        <TextView
+            android:id="@+id/loading_movie_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="LOADING"
+            android:textAlignment="center"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="10sp"
+            android:text="@{movies.toString()}"
+            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}" />
+
+    </FrameLayout>
+</layout>
+
+
