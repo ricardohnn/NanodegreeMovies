@@ -68,6 +68,9 @@ Here are some references:
   * https://proandroiddev.com/android-architecture-components-network-awareness-using-livedata-1a8d3749734d<br>
   * http://www.vogella.com/tutorials/AndroidDatabinding/article.html<br>
   * http://www.androidauthority.com/data-binding-in-android-709747/<br>
+  * https://medium.com/google-developers/android-data-binding-recyclerview-db7c40d9f0e4<br>
+  * https://medium.com/google-developers/android-data-binding-adding-some-variability-1fe001b3abcc<br>
+  * https://stackoverflow.com/questions/45205287/android-architecture-component-how-to-insert-repository-parameter<br>
   * [Android Architecture Components part 1][AACP1]<br>
   * [Android Architecture Components part 2][AACP2]
 * That POJO plugin created a double field as int, which made the request fail. Keep in mind to always check if all values matches your expectations.
