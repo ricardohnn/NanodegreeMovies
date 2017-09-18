@@ -75,6 +75,15 @@ Here are some references:
   * [Android Architecture Components part 2][AACP2]
 * That POJO plugin created a double field as int, which made the request fail. Keep in mind to always check if all values matches your expectations.
 
+[09/18]
+* Finally able to create the view with loading contents, using Glide to load the image inside the grid item:<br>
+  * https://blog.stylingandroid.com/data-binding-part-3/
+  * http://myhexaville.com/2016/12/05/write-less-android-data-binding/
+* To make the image item matches the borders of the recycler view, please remember that the following is needed<br>
+  ```java
+  android:adjustViewBounds="true"
+  ```
+
 [ADDAAC]:<https://developer.android.com/topic/libraries/architecture/adding-components.html>
 [OKHTTP]:<http://square.github.io/okhttp/>
 [LOGO]:<https://is1-ssl.mzstatic.com/image/thumb/Purple111/v4/d9/d9/95/d9d995d3-e69b-1cce-3b29-68f2c8870b85/source/256x256bb.jpg>

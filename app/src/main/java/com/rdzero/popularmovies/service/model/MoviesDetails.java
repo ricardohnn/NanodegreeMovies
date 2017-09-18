@@ -210,7 +210,7 @@ public class MoviesDetails implements Parcelable {
         dest.writeInt(voteCount);
     }
 
-    protected MoviesDetails(Parcel in) {
+    public MoviesDetails(Parcel in) {
         this.overview = in.readString();
         this.originalLanguage = in.readString();
         this.originalTitle = in.readString();

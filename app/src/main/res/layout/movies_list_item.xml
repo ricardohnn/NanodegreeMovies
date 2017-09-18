@@ -1,45 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="isLoading" type="boolean" />
-        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MoviesDetails" />
+        <variable name="isLoading" type="boolean"/>
+        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MoviesDetails"/>
     </data>
-
-    <FrameLayout
-        android:id="@+id/movie_list_item_default"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="@{isLoading ? View.VISIBLE : View.GONE}">
-
-    <ImageView
-        android:id="@+id/movie_poster_image_default"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/movie_list_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="@{isLoading ? View.GONE : View.VISIBLE}">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/movie_poster_image"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageUrl="@{movieDetails.posterPath}"
+            android:adjustViewBounds="true"
+            app:placeholder="@{@drawable/ic_cloud_circle_white_24dp}"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/movie_list_item_footer"
             android:layout_gravity="bottom"
             android:padding="@dimen/movie_list_item_text_padding"
-            android:background="@color/Black50"
+            android:background="@color/black50"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/movie_list_item_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="@{movieDetails.title}"
@@ -50,15 +41,13 @@
 
             <TextView
                 android:id="@+id/movie_list_item_details"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="@{movieDetails.releaseDate}"
+                android:text="@{movieDetails.releaseDate.substring(0,4)}"
                 android:textSize="@dimen/movie_list_item_detail_text_size"
                 android:ellipsize="end"
                 android:maxLines="1"/>
         </LinearLayout>
     </FrameLayout>
 </layout>
-
-

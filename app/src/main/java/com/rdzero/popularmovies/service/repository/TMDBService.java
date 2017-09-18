@@ -2,7 +2,6 @@ package com.rdzero.popularmovies.service.repository;
 
 
 import com.rdzero.popularmovies.service.model.Movies;
-import com.rdzero.popularmovies.service.model.MoviesDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
