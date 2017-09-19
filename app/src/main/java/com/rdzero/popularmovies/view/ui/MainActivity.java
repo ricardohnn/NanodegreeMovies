@@ -7,7 +7,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,11 +25,18 @@ public class MainActivity extends LifecycleActivity {
     private MoviesAdapter moviesAdapter;
     private List<MoviesDetails> moviesDetailsList;
     private MoviesViewModel viewModel;
+    private boolean topRatedSelected = false;
+    private final static String TOP_RATED = "top_rated";
+    private final static String POPULAR = "popular";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("NAKA", "onCreate");
+
+        if (savedInstanceState != null){
+            topRatedSelected = savedInstanceState.getBoolean(TOP_RATED);
+        }
+
         moviesListBinding = DataBindingUtil.setContentView(this, R.layout.movies_list);
 
         moviesAdapter = new MoviesAdapter();
@@ -38,10 +44,23 @@ public class MainActivity extends LifecycleActivity {
         moviesListBinding.setIsLoading(true);
 
         viewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
-        observeViewModel(viewModel, "popular");
+        observeViewModel(viewModel);
     }
 
-    private void observeViewModel(MoviesViewModel viewModel, String searchType) {
+    private void observeViewModel(MoviesViewModel viewModel) {
+        viewModel.getMoviesObservable().observe(this, new Observer<Movies>() {
+            @Override
+            public void onChanged(@Nullable Movies movies) {
+                if (movies != null) {
+                    moviesDetailsList = movies.getResults();
+                    moviesAdapter.setMoviesDetailsList(moviesDetailsList);
+                    moviesListBinding.setIsLoading(false);
+                }
+            }
+        });
+    }
+
+    private void searchNewObservableViewModel(MoviesViewModel viewModel, String searchType) {
         viewModel.getMoviesObservable(searchType).observe(this, new Observer<Movies>() {
             @Override
             public void onChanged(@Nullable Movies movies) {
@@ -57,24 +76,35 @@ public class MainActivity extends LifecycleActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main_search_type_menu,menu);
+        if (topRatedSelected){
+            MenuItem menuItem = menu.findItem(R.id.top_rated_item);
+            menuItem.setChecked(true);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String searchType;
         switch (item.getItemId()){
             case R.id.top_rated_item:
+                moviesListBinding.setIsLoading(true);
                 if (item.isChecked()) {
                     item.setChecked(false);
-                    searchType = "popular";
+                    topRatedSelected = false;
+                    searchNewObservableViewModel(viewModel, POPULAR);
                 } else {
                     item.setChecked(true);
-                    searchType = "top_rated";
+                    topRatedSelected = true;
+                    searchNewObservableViewModel(viewModel, TOP_RATED);
                 }
-                moviesListBinding.setIsLoading(true);
-                observeViewModel(viewModel, searchType);
+                break;
         }
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(TOP_RATED, topRatedSelected);
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

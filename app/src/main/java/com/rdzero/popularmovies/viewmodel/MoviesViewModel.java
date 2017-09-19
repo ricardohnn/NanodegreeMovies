@@ -13,8 +13,10 @@ import com.rdzero.popularmovies.service.repository.MoviesRepository;
 
 public class MoviesViewModel extends AndroidViewModel{
     private LiveData<Movies> moviesObservable;
+
     public MoviesViewModel(Application application) {
         super(application);
+        moviesObservable = MoviesRepository.getInstance().getMoviesList("popular");
     }
 
     public LiveData<Movies> getMoviesObservable(String searchType){
