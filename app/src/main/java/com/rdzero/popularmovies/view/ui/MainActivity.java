@@ -7,6 +7,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.rdzero.popularmovies.R;
 import com.rdzero.popularmovies.databinding.MoviesListBinding;
@@ -24,17 +27,16 @@ public class MainActivity extends LifecycleActivity {
     private MoviesAdapter moviesAdapter;
     private List<MoviesDetails> moviesDetailsList;
 
+    private MoviesViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final MoviesViewModel viewModel;
-
+        Log.d("NAKA", "onCreate");
         moviesListBinding = DataBindingUtil.setContentView(this, R.layout.movies_list);
 
         moviesAdapter = new MoviesAdapter();
         moviesListBinding.moviesList.setAdapter(moviesAdapter);
-
         moviesListBinding.setIsLoading(true);
 
         viewModel = ViewModelProviders.of(this, new MoviesViewModel.MoviesViewModelFactory(getApplication(), "popular")).get(MoviesViewModel.class);
@@ -53,5 +55,28 @@ public class MainActivity extends LifecycleActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_search_type_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MoviesViewModel model;
+        switch (item.getItemId()){
+            case R.id.top_rated_item:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    model = ViewModelProviders.of(this, new MoviesViewModel.MoviesViewModelFactory(getApplication(), "popular")).get(MoviesViewModel.class);
+                } else {
+                    item.setChecked(true);
+                    model = ViewModelProviders.of(this, new MoviesViewModel.MoviesViewModelFactory(getApplication(), "top_rated")).get(MoviesViewModel.class);
+                }
+                observeViewModel(model);
+        }
+        return true;
     }
 }

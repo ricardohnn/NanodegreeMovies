@@ -83,6 +83,8 @@ Here are some references:
   ```java
   android:adjustViewBounds="true"
   ```
+* Another interesting reference:<br>
+  * https://medium.com/exploring-android/exploring-the-new-android-architecture-components-c33b15d89c23
 
 [ADDAAC]:<https://developer.android.com/topic/libraries/architecture/adding-components.html>
 [OKHTTP]:<http://square.github.io/okhttp/>

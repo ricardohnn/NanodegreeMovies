@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide;
  * Created by ricardo.nakayama on 9/18/2017.
  */
 
-public final class DataBinder {
+public final class MoviePosterDataBinder {
 
     //TODO Use the configuration from API to retrieve the correct size and url path
     private static final String HTTPS_API_TMDB_IMAGES_URL = "https://image.tmdb.org/t/p/w185";
 
-    private DataBinder() {
+    private MoviePosterDataBinder() {
     }
 
     @BindingAdapter({"app:imageUrl", "app:placeholder"})
