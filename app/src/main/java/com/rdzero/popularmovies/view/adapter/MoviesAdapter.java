@@ -3,7 +3,6 @@ package com.rdzero.popularmovies.view.adapter;
 import android.databinding.DataBindingUtil;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -70,7 +69,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-        Log.d("NAKA",moviesDetailsList.get(position).toString());
         holder.binding.setMovieDetails(moviesDetailsList.get(position));
         holder.binding.executePendingBindings();
     }

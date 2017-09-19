@@ -20,13 +20,11 @@ import com.rdzero.popularmovies.viewmodel.MoviesViewModel;
 
 import java.util.List;
 
-
 public class MainActivity extends LifecycleActivity {
 
     private MoviesListBinding moviesListBinding;
     private MoviesAdapter moviesAdapter;
     private List<MoviesDetails> moviesDetailsList;
-
     private MoviesViewModel viewModel;
 
     @Override
@@ -39,19 +37,18 @@ public class MainActivity extends LifecycleActivity {
         moviesListBinding.moviesList.setAdapter(moviesAdapter);
         moviesListBinding.setIsLoading(true);
 
-        viewModel = ViewModelProviders.of(this, new MoviesViewModel.MoviesViewModelFactory(getApplication(), "popular")).get(MoviesViewModel.class);
-        observeViewModel(viewModel);
+        viewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
+        observeViewModel(viewModel, "popular");
     }
 
-    private void observeViewModel(MoviesViewModel viewModel) {
-        // Update the list when the data changes
-        viewModel.getMoviesObservable().observe(this, new Observer<Movies>() {
+    private void observeViewModel(MoviesViewModel viewModel, String searchType) {
+        viewModel.getMoviesObservable(searchType).observe(this, new Observer<Movies>() {
             @Override
             public void onChanged(@Nullable Movies movies) {
                 if (movies != null) {
                     moviesDetailsList = movies.getResults();
-                    moviesListBinding.setIsLoading(false);
                     moviesAdapter.setMoviesDetailsList(moviesDetailsList);
+                    moviesListBinding.setIsLoading(false);
                 }
             }
         });
@@ -65,17 +62,18 @@ public class MainActivity extends LifecycleActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        MoviesViewModel model;
+        String searchType;
         switch (item.getItemId()){
             case R.id.top_rated_item:
                 if (item.isChecked()) {
                     item.setChecked(false);
-                    model = ViewModelProviders.of(this, new MoviesViewModel.MoviesViewModelFactory(getApplication(), "popular")).get(MoviesViewModel.class);
+                    searchType = "popular";
                 } else {
                     item.setChecked(true);
-                    model = ViewModelProviders.of(this, new MoviesViewModel.MoviesViewModelFactory(getApplication(), "top_rated")).get(MoviesViewModel.class);
+                    searchType = "top_rated";
                 }
-                observeViewModel(model);
+                moviesListBinding.setIsLoading(true);
+                observeViewModel(viewModel, searchType);
         }
         return true;
     }

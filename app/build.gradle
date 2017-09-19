@@ -1,19 +1,19 @@
 project.ext {
     annotation = "1.2"
-    appcompat = "25.3.1"
+    appcompat = "26.0.0"
     arch = "1.0.0-alpha9"
     constraintLayout = "1.0.0-beta4"
     glide = "3.7.0"
     glideAnnotation = "4.1.1"
     okhttp = "3.9.0"
-    recyclerview = "25.3.1"
+    recyclerview = "26.0.0"
     retrofit = "2.0.2"
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.rdzero.popularmovies"
