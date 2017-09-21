@@ -22,7 +22,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField("String","TMDB_API_KEY",TMDB_API_KEY)
+        buildConfigField("String", "TMDB_API_KEY", TMDB_API_KEY)
     }
     buildTypes {
         release {
@@ -53,5 +53,6 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$project.recyclerview"
     compile "com.squareup.retrofit2:retrofit:$project.retrofit"
     compile "com.squareup.retrofit2:converter-gson:$project.retrofit"
+    compile "com.android.support:design:26.0.0"
     testCompile 'junit:junit:4.12'
 }

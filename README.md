@@ -89,6 +89,10 @@ Here are some references:
 [09/19]
 * I had some serious problems to find out how to make a new call for the api by sending either popular/top_rated, the structure for creating a viewholder with the custom factory (extending ViewModelProvider.NewInstanceFactory) was not a good idea, since the "create" method was only called once when the lifecycle object (activity/fragment) was first created. Since it is not my intentions to kill it, I changed the viewModel and the default factory. 
 
+[09/20]
+* Starting the detail activity, going to use the scrollingActivity created by the Studio wizard.
+
+
 [ADDAAC]:<https://developer.android.com/topic/libraries/architecture/adding-components.html>
 [OKHTTP]:<http://square.github.io/okhttp/>
 [LOGO]:<https://is1-ssl.mzstatic.com/image/thumb/Purple111/v4/d9/d9/95/d9d995d3-e69b-1cce-3b29-68f2c8870b85/source/256x256bb.jpg>

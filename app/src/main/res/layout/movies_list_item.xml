@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="isLoading" type="boolean"/>
         <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MoviesDetails"/>
+        <variable name="callback" type="com.rdzero.popularmovies.view.callback.MovieClickCallback"/>
     </data>
 
     <FrameLayout
         android:id="@+id/movie_list_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() ->  callback.onClick(movieDetails)}">
 
         <ImageView
             android:id="@+id/movie_poster_image"

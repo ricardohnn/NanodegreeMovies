@@ -1,7 +1,7 @@
 package com.rdzero.popularmovies.view.callback;
 
-import com.rdzero.popularmovies.service.model.Movies;
+import com.rdzero.popularmovies.service.model.MoviesDetails;
 
 public interface MovieClickCallback {
-    void onClick(Movies movies);
+    void onClick(MoviesDetails moviesDetails);
 }

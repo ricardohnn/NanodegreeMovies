@@ -1,9 +1,12 @@
 package com.rdzero.popularmovies.view.ui;
 
 
+import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +18,7 @@ import com.rdzero.popularmovies.databinding.MoviesListBinding;
 import com.rdzero.popularmovies.service.model.Movies;
 import com.rdzero.popularmovies.service.model.MoviesDetails;
 import com.rdzero.popularmovies.view.adapter.MoviesAdapter;
+import com.rdzero.popularmovies.view.callback.MovieClickCallback;
 import com.rdzero.popularmovies.viewmodel.MoviesViewModel;
 
 import java.util.List;
@@ -28,10 +32,12 @@ public class MainActivity extends LifecycleActivity {
     private boolean topRatedSelected = false;
     private final static String TOP_RATED = "top_rated";
     private final static String POPULAR = "popular";
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
 
         if (savedInstanceState != null){
             topRatedSelected = savedInstanceState.getBoolean(TOP_RATED);
@@ -39,7 +45,7 @@ public class MainActivity extends LifecycleActivity {
 
         moviesListBinding = DataBindingUtil.setContentView(this, R.layout.movies_list);
 
-        moviesAdapter = new MoviesAdapter();
+        moviesAdapter = new MoviesAdapter(projectClickCallback);
         moviesListBinding.moviesList.setAdapter(moviesAdapter);
         moviesListBinding.setIsLoading(true);
 
@@ -72,6 +78,17 @@ public class MainActivity extends LifecycleActivity {
             }
         });
     }
+
+    private final MovieClickCallback projectClickCallback = new MovieClickCallback() {
+        @Override
+        public void onClick(MoviesDetails moviesDetails) {
+            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                Intent intent = new Intent(MainActivity.this, ScrollingMovieDetailActivity.class);
+                intent.putExtra("movieDetails", moviesDetails);
+                context.startActivity(intent);
+            }
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

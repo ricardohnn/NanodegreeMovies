@@ -1,6 +1,7 @@
 package com.rdzero.popularmovies.view.adapter;
 
 import android.databinding.DataBindingUtil;
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import com.rdzero.popularmovies.R;
 import com.rdzero.popularmovies.databinding.MoviesListItemBinding;
 import com.rdzero.popularmovies.service.model.MoviesDetails;
+import com.rdzero.popularmovies.view.callback.MovieClickCallback;
 
 import java.util.List;
 
@@ -20,7 +22,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     List<? extends MoviesDetails> moviesDetailsList;
 
-    public MoviesAdapter() {
+    @Nullable
+    private final MovieClickCallback movieClickCallback;
+
+    public MoviesAdapter(@Nullable MovieClickCallback movieClickCallback) {
+        this.movieClickCallback = movieClickCallback;
     }
 
     public void setMoviesDetailsList(final List<? extends MoviesDetails> moviesDetailsList) {
@@ -63,6 +69,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                 .inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.movies_list_item,
                         parent, false);
+
+        binding.setCallback(movieClickCallback);
 
         return new MovieViewHolder(binding);
     }

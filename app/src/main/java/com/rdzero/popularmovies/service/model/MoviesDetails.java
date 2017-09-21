@@ -3,11 +3,12 @@ package com.rdzero.popularmovies.service.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 import javax.annotation.Generated;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Generated("com.robohorse.robopojogenerator")
 public class MoviesDetails implements Parcelable {
@@ -173,17 +174,17 @@ public class MoviesDetails implements Parcelable {
                         "overview = '" + overview + '\'' +
                         ",original_language = '" + originalLanguage + '\'' +
                         ",original_title = '" + originalTitle + '\'' +
-                        ",video = '" + video + '\'' +
+                        ",video = '" + String.valueOf(video) + '\'' +
                         ",title = '" + title + '\'' +
-                        ",genre_ids = '" + genreIds + '\'' +
-                        ",poster_path = '" + posterPath + '\'' +
-                        ",backdrop_path = '" + backdropPath + '\'' +
-                        ",release_date = '" + releaseDate + '\'' +
-                        ",vote_average = '" + voteAverage + '\'' +
-                        ",popularity = '" + popularity + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",adult = '" + adult + '\'' +
-                        ",vote_count = '" + voteCount + '\'' +
+                        ",genre_ids1 = '" + genreIds.get(0).toString() + '\'' +
+                        ",poster_path = '" + posterPath.toString() + '\'' +
+                        ",backdrop_path = '" + backdropPath.toString() + '\'' +
+                        ",release_date = '" + releaseDate.toString() + '\'' +
+                        ",vote_average = '" + String.valueOf(voteAverage) + '\'' +
+                        ",popularity = '" + String.valueOf(popularity) + '\'' +
+                        ",id = '" + String.valueOf(id) + '\'' +
+                        ",adult = '" + String.valueOf(adult) + '\'' +
+                        ",vote_count = '" + String.valueOf(voteCount) + '\'' +
                         "}";
     }
 
@@ -216,7 +217,8 @@ public class MoviesDetails implements Parcelable {
         this.originalTitle = in.readString();
         this.video = (in.readInt() == 0 ? false : true);
         this.title = in.readString();
-        in.readList(this.genreIds,null);
+        this.genreIds = new ArrayList<Integer>();
+        in.readList(this.genreIds, null);
         this.posterPath = in.readString();
         this.backdropPath = in.readString();
         this.releaseDate = in.readString();
