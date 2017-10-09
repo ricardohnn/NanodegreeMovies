@@ -24,10 +24,9 @@ public class ScrollingMovieDetailActivity extends AppCompatActivity {
 
         ActivityScrollingMovieDetailBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_scrolling_movie_detail);
         binding.setMovieDetails(moviesDetails);
-//        setContentView(R.layout.activity_scrolling_movie_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        binding.movieDetailContentScrollingInclude.setMovieDetails(moviesDetails);
+
+        Toolbar toolbar = findViewById(R.id.movie_detail_toolbar);
         setSupportActionBar(toolbar);
-        TextView textView = findViewById(R.id.text_content);
-        textView.setText(moviesDetails.toString());
     }
 }

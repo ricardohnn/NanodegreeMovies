@@ -14,14 +14,14 @@
         tools:context=".view.ui.ScrollingMovieDetailActivity">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
+            android:id="@+id/movie_detail_app_bar"
             android:layout_width="match_parent"
             android:layout_height="360dp"
             android:fitsSystemWindows="true"
             android:theme="@style/AppBarOverlay">
 
             <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+                android:id="@+id/movie_detail_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -29,20 +29,19 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
-                    android:id="@+id/movie_poster_image_detail"
+                    android:id="@+id/movie_detail_background_poster_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{movieDetails.posterPath}"
-                    app:placeholder="@{@drawable/ic_cloud_circle_white_24dp}"/>
+                    app:imageUrl="@{movieDetails.posterPath}"/>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/black30" />
+                    android:background="@color/black50" />
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/movie_detail_toolbar"
                     android:title="@{movieDetails.title}"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -54,6 +53,8 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_scrolling_movie_detail" />
+        <include
+            android:id="@+id/movie_detail_content_scrolling_include"
+            layout="@layout/content_scrolling_movie_detail" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

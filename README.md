@@ -92,6 +92,9 @@ Here are some references:
 [09/20]
 * Starting the detail activity, going to use the scrollingActivity created by the Studio wizard.
 
+[10/09]
+* After a long time, I am restarting this project. Since the default ratingbar widget is horrible and bugged, I will be using this framework:
+  * [MaterialRatingBar][RATINGBAR]<br>
 
 [ADDAAC]:<https://developer.android.com/topic/libraries/architecture/adding-components.html>
 [OKHTTP]:<http://square.github.io/okhttp/>
@@ -113,5 +116,6 @@ Here are some references:
 [MVVMAAC]:<https://android.jlelse.eu/android-architecture-components-now-with-100-more-mvvm-11629a630125>
 [AACP1]:<https://riggaroo.co.za/android-architecture-components-looking-room-livedata-part-1/>
 [AACP2]:<https://riggaroo.co.za/android-architecture-components-looking-viewmodels-part-2/>
+[RATINGBAR]:<https://github.com/DreaminginCodeZH/MaterialRatingBar>
 [RDMEHELP1]:<https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet>
 [RDMEHELP2]:<https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md>

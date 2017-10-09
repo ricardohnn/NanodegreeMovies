@@ -41,7 +41,7 @@ public class MoviesDetails implements Parcelable {
     private String releaseDate;
 
     @SerializedName("vote_average")
-    private double voteAverage;
+    private float voteAverage;
 
     @SerializedName("popularity")
     private double popularity;
@@ -127,11 +127,11 @@ public class MoviesDetails implements Parcelable {
         return releaseDate;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setVoteAverage(float voteAverage) {
         this.voteAverage = voteAverage;
     }
 
-    public double getVoteAverage() {
+    public float getVoteAverage() {
         return voteAverage;
     }
 
@@ -204,7 +204,7 @@ public class MoviesDetails implements Parcelable {
         dest.writeString(posterPath);
         dest.writeString(backdropPath);
         dest.writeString(releaseDate);
-        dest.writeDouble(voteAverage);
+        dest.writeFloat(voteAverage);
         dest.writeDouble(popularity);
         dest.writeInt(id);
         dest.writeInt(adult ? 1 : 0);
@@ -222,7 +222,7 @@ public class MoviesDetails implements Parcelable {
         this.posterPath = in.readString();
         this.backdropPath = in.readString();
         this.releaseDate = in.readString();
-        this.voteAverage = in.readDouble();
+        this.voteAverage = in.readFloat();
         this.popularity = in.readDouble();
         this.id = in.readInt();
         this.adult = (in.readInt() == 0 ? false : true);

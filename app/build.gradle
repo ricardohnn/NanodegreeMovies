@@ -1,6 +1,6 @@
 project.ext {
     annotation = "1.2"
-    appcompat = "26.0.0"
+    appcompat = "26.0.2"
     arch = "1.0.0-alpha9"
     constraintLayout = "1.0.0-beta4"
     glide = "3.7.0"
@@ -14,11 +14,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.rdzero.popularmovies"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -42,7 +42,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "javax.annotation:javax.annotation-api:$project.annotation"
-    compile "com.android.support:appcompat-v7:$project.appcompat"
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile "android.arch.lifecycle:runtime:$project.arch"
     compile "android.arch.lifecycle:extensions:$project.arch"
     annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
@@ -53,6 +53,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$project.recyclerview"
     compile "com.squareup.retrofit2:retrofit:$project.retrofit"
     compile "com.squareup.retrofit2:converter-gson:$project.retrofit"
-    compile "com.android.support:design:26.0.0"
+    compile "com.android.support:design:26.1.0"
+    compile 'me.zhanghai.android.materialratingbar:library:1.1.1'
     testCompile 'junit:junit:4.12'
 }

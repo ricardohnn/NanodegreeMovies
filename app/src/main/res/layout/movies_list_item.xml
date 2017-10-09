@@ -8,18 +8,17 @@
     </data>
 
     <FrameLayout
-        android:id="@+id/movie_list_item"
+        android:id="@+id/movies_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() ->  callback.onClick(movieDetails)}">
 
         <ImageView
-            android:id="@+id/movie_poster_image"
+            android:id="@+id/movie_list_item_poster_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            app:imageUrl="@{movieDetails.posterPath}"
-            app:placeholder="@{@drawable/ic_cloud_circle_white_24dp}"/>
+            app:imageUrl="@{movieDetails.posterPath}"/>
 
         <LinearLayout
             android:layout_width="match_parent"
