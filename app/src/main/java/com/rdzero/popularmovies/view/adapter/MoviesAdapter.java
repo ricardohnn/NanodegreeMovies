@@ -14,13 +14,9 @@ import com.rdzero.popularmovies.view.callback.MovieClickCallback;
 
 import java.util.List;
 
-/**
- * Created by ricardo.nakayama on 13/09/2017.
- */
-
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
-    List<? extends MoviesDetails> moviesDetailsList;
+    private List<? extends MoviesDetails> moviesDetailsList;
 
     @Nullable
     private final MovieClickCallback movieClickCallback;

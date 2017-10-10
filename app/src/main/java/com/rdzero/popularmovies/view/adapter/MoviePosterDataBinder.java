@@ -6,11 +6,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.rdzero.popularmovies.R;
-
-/**
- * Created by ricardo.nakayama on 9/18/2017.
- */
 
 public final class MoviePosterDataBinder {
 

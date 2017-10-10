@@ -2,6 +2,7 @@ package com.rdzero.popularmovies.service.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.rdzero.popularmovies.BuildConfig;
@@ -19,10 +20,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by ricardo.nakayama on 11/09/2017.
- */
-
 public class MoviesRepository {
     private TMDBService tmdbService;
     private static MoviesRepository moviesRepository;
@@ -30,7 +27,7 @@ public class MoviesRepository {
     private MoviesRepository(){
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
+            public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
                 Request originalRequest  = chain.request();
                 HttpUrl originalHttpUrl = originalRequest.url();
 
@@ -69,14 +66,12 @@ public class MoviesRepository {
         tmdbService.getMoviesList(searchType).enqueue(new Callback<Movies>() {
             @Override
             public void onResponse(Call<Movies> call, Response<Movies> response) {
-                Log.d("NAKA", response.body().toString());
                 data.setValue(response.body());
             }
 
             @Override
             public void onFailure(Call<Movies> call, Throwable t) {
                 // TODO Improve error handling
-                Log.d("NAKA", t.getMessage());
                 data.setValue(null);
             }
         });

@@ -7,10 +7,6 @@ import android.arch.lifecycle.LiveData;
 import com.rdzero.popularmovies.service.model.Movies;
 import com.rdzero.popularmovies.service.repository.MoviesRepository;
 
-/**
- * Created by ricardo.nakayama on 13/09/2017.
- */
-
 public class MoviesViewModel extends AndroidViewModel{
     private LiveData<Movies> moviesObservable;
 
