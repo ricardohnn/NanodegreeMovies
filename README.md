@@ -73,6 +73,7 @@ Here are some references:
   * https://stackoverflow.com/questions/45205287/android-architecture-component-how-to-insert-repository-parameter<br>
   * [Android Architecture Components part 1][AACP1]<br>
   * [Android Architecture Components part 2][AACP2]
+  * https://github.com/googlesamples/android-architecture-components
 * That POJO plugin created a double field as int, which made the request fail. Keep in mind to always check if all values matches your expectations.
 
 [09/18]
@@ -95,6 +96,37 @@ Here are some references:
 [10/09]
 * After a long time, I am restarting this project. Since the default ratingbar widget is horrible and bugged, I will be using this framework:
   * [MaterialRatingBar][RATINGBAR]<br>
+  
+[10/10]
+* App reviewed, suggested links:
+  * MVVM:
+    * https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b
+    * https://academy.realm.io/posts/eric-maxwell-mvc-mvp-and-mvvm-on-android/
+    * https://android.jlelse.eu/architecture-patterns-in-android-abf99f2b6f70
+	
+  * I would highly recommend checking out RxAndroid, it's based on a concept called Reactive Programming.
+    * https://github.com/ReactiveX/RxAndroid
+    * http://www.andreamaglie.com/rxjava-android-where-to-start/
+    * http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/ (this article has more parts, the links are in the article itself)
+
+  * An article on why to use RxJava/RxAndroid:
+    * http://blog.feedpresso.com/2016/01/25/why-you-should-use-rxjava-in-android-a-short-introduction-to-rxjava.html
+
+  * And comparison with AsyncTask/AsyncTaskLoader:
+    * http://blog.stablekernel.com/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/
+
+  * It also helps greatly in unit testing:
+    * http://fedepaol.github.io/blog/2015/09/13/testing-rxjava-observables-subscriptions/
+
+  * And it works nicely with Retrofit library:
+    * https://medium.freecodecamp.com/rxandroid-and-retrofit-2-0-66dc52725fff
+    * https://www.captechconsulting.com/blogs/a-mvp-approach-to-lifecycle-safe-requests-with-retrofit-20-and-rxjava
+    * http://randomdotnext.com/retrofit-rxjava/
+	
+  * For naming guidelines, some nice resources that you can refer to:
+    * https://jeroenmols.com/blog/2016/03/07/resourcenaming/
+    * https://medium.com/@mikelimantara/overview-of-android-project-structure-and-naming-conventions-b08f6d0b7291
+
 
 [ADDAAC]:<https://developer.android.com/topic/libraries/architecture/adding-components.html>
 [OKHTTP]:<http://square.github.io/okhttp/>
