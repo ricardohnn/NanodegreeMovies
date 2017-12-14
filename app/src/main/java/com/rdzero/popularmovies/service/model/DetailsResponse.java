@@ -12,7 +12,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class TMDBApiResponse<T> {
+public class DetailsResponse {
     @SerializedName("page")
     private int page;
 
@@ -20,7 +20,7 @@ public class TMDBApiResponse<T> {
     private int totalPages;
 
     @SerializedName("results")
-    private List<T> results;
+    private List<MoviesDetails> results;
 
     @SerializedName("total_results")
     private int totalResults;
@@ -41,11 +41,11 @@ public class TMDBApiResponse<T> {
         return totalPages;
     }
 
-    public void setResults(List<T> results) {
+    public void setResults(List<MoviesDetails> results) {
         this.results = results;
     }
 
-    public List<T> getResults() {
+    public List<MoviesDetails> getResults() {
         return results;
     }
 

@@ -5,21 +5,15 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import com.rdzero.popularmovies.BuildConfig;
 import com.rdzero.popularmovies.service.model.MovieReviews;
 import com.rdzero.popularmovies.service.model.MovieTrailers;
 import com.rdzero.popularmovies.service.model.MoviesDetails;
-import com.rdzero.popularmovies.service.model.TMDBApiResponse;
+import com.rdzero.popularmovies.service.model.DetailsResponse;
+import com.rdzero.popularmovies.service.model.ReviewsResponse;
+import com.rdzero.popularmovies.service.model.TrailersResponse;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.HttpUrl;
@@ -55,35 +49,13 @@ public class MoviesRepository {
             }
         }).build();
 
-        Gson gson =
-                new GsonBuilder()
-                        .registerTypeAdapter(MoviesDetails.class, new MyDeserializer<MoviesDetails>())
-                        .registerTypeAdapter(MovieReviews.class, new MyDeserializer<MovieReviews>())
-                        .create();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(TMDBService.HTTPS_API_TMDB_URL)
                 .client(okHttpClient)
-                //.addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         tmdbService = retrofit.create(TMDBService.class);
-    }
-
-    class MyDeserializer<T> implements JsonDeserializer<T>
-    {
-        @Override
-        public T deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
-                throws JsonParseException
-        {
-            // Get the "content" element from the parsed JSON
-            JsonElement content = je.getAsJsonObject().get("results");
-
-            // Deserialize it. You use a new instance of Gson to avoid infinite recursion
-            // to this deserializer
-            return new Gson().fromJson(content, type);
-
-        }
     }
 
     public synchronized static MoviesRepository getInstance() {
@@ -97,15 +69,15 @@ public class MoviesRepository {
     public LiveData<List<MoviesDetails>> getMoviesList(String searchType) {
         final MutableLiveData<List<MoviesDetails>> data = new MutableLiveData<>();
 
-        tmdbService.getMoviesList(searchType).enqueue(new Callback<TMDBApiResponse<MoviesDetails>>() {
+        tmdbService.getMoviesList(searchType).enqueue(new Callback<DetailsResponse>() {
             @Override
-            public void onResponse(Call<TMDBApiResponse<MoviesDetails>> call, Response<TMDBApiResponse<MoviesDetails>> response) {
+            public void onResponse(Call<DetailsResponse> call, Response<DetailsResponse> response) {
                 Log.d("NAKAi", response.body().toString());
                 data.setValue(response.body().getResults());
             }
 
             @Override
-            public void onFailure(Call<TMDBApiResponse<MoviesDetails>> call, Throwable t) {
+            public void onFailure(Call<DetailsResponse> call, Throwable t) {
                 // TODO Improve error handling
                 data.setValue(null);
                 Log.d("NAKAe", "error" + t.toString());
@@ -118,15 +90,15 @@ public class MoviesRepository {
     public LiveData<List<MovieReviews>> getMovieReviews(String movieId) {
         final MutableLiveData<List<MovieReviews>> data = new MutableLiveData<>();
 
-        tmdbService.getMovieReviews(movieId).enqueue(new Callback<TMDBApiResponse>() {
+        tmdbService.getMovieReviews(movieId).enqueue(new Callback<ReviewsResponse>() {
             @Override
-            public void onResponse(Call<TMDBApiResponse> call, Response<TMDBApiResponse> response) {
+            public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
                 data.setValue(response.body().getResults());
                 Log.d("NAKAi", data.getValue().toString());
             }
 
             @Override
-            public void onFailure(Call<TMDBApiResponse> call, Throwable t) {
+            public void onFailure(Call<ReviewsResponse> call, Throwable t) {
                 // TODO Improve error handling
                 data.setValue(null);
                 Log.d("NAKAe", "error" + t.toString());
@@ -139,15 +111,15 @@ public class MoviesRepository {
     public LiveData<List<MovieTrailers>> getMovieTrailers(String movieId) {
         final MutableLiveData<List<MovieTrailers>> data = new MutableLiveData<>();
 
-        tmdbService.getMovieTrailers(movieId).enqueue(new Callback<TMDBApiResponse>() {
+        tmdbService.getMovieTrailers(movieId).enqueue(new Callback<TrailersResponse>() {
             @Override
-            public void onResponse(Call<TMDBApiResponse> call, Response<TMDBApiResponse> response) {
-                data.setValue(response.body().getResults());
+            public void onResponse(Call<TrailersResponse> call, Response<TrailersResponse> response) {
+                //data.setValue(response.body().getResults());
                 Log.d("NAKAi", data.getValue().toString());
             }
 
             @Override
-            public void onFailure(Call<TMDBApiResponse> call, Throwable t) {
+            public void onFailure(Call<TrailersResponse> call, Throwable t) {
                 // TODO Improve error handling
                 data.setValue(null);
                 Log.d("NAKAe", "error" + t.toString());
