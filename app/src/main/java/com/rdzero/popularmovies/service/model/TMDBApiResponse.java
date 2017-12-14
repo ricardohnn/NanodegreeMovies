@@ -1,13 +1,18 @@
 package com.rdzero.popularmovies.service.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Movies {
-
+public class TMDBApiResponse<T> {
     @SerializedName("page")
     private int page;
 
@@ -15,7 +20,7 @@ public class Movies {
     private int totalPages;
 
     @SerializedName("results")
-    private List<MoviesDetails> results;
+    private List<T> results;
 
     @SerializedName("total_results")
     private int totalResults;
@@ -36,11 +41,11 @@ public class Movies {
         return totalPages;
     }
 
-    public void setResults(List<MoviesDetails> results) {
+    public void setResults(List<T> results) {
         this.results = results;
     }
 
-    public List<MoviesDetails> getResults() {
+    public List<T> getResults() {
         return results;
     }
 
@@ -55,7 +60,7 @@ public class Movies {
     @Override
     public String toString() {
         return
-                "Movies{" +
+                "MoviesListResponse{" +
                         "page = '" + page + '\'' +
                         ",total_pages = '" + totalPages + '\'' +
                         ",results = '" + results + '\'' +

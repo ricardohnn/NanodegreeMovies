@@ -15,7 +15,6 @@ import android.view.MenuItem;
 
 import com.rdzero.popularmovies.R;
 import com.rdzero.popularmovies.databinding.MoviesListBinding;
-import com.rdzero.popularmovies.service.model.Movies;
 import com.rdzero.popularmovies.service.model.MoviesDetails;
 import com.rdzero.popularmovies.view.adapter.MoviesAdapter;
 import com.rdzero.popularmovies.view.callback.MovieClickCallback;
@@ -54,11 +53,10 @@ public class MainActivity extends LifecycleActivity {
     }
 
     private void observeViewModel(MoviesViewModel viewModel) {
-        viewModel.getMoviesObservable().observe(this, new Observer<Movies>() {
+        viewModel.getMoviesObservable(null).observe(this, new Observer<List<MoviesDetails>>() {
             @Override
-            public void onChanged(@Nullable Movies movies) {
-                if (movies != null) {
-                    moviesDetailsList = movies.getResults();
+            public void onChanged(@Nullable List<MoviesDetails> moviesDetailsList) {
+                if (moviesDetailsList != null) {
                     moviesAdapter.setMoviesDetailsList(moviesDetailsList);
                     moviesListBinding.setIsLoading(false);
                 }
@@ -67,11 +65,10 @@ public class MainActivity extends LifecycleActivity {
     }
 
     private void searchNewObservableViewModel(MoviesViewModel viewModel, String searchType) {
-        viewModel.getMoviesObservable(searchType).observe(this, new Observer<Movies>() {
+        viewModel.getMoviesObservable(searchType).observe(this, new Observer<List<MoviesDetails>>() {
             @Override
-            public void onChanged(@Nullable Movies movies) {
-                if (movies != null) {
-                    moviesDetailsList = movies.getResults();
+            public void onChanged(@Nullable List<MoviesDetails> moviesDetailsList) {
+                if (moviesDetailsList != null) {
                     moviesAdapter.setMoviesDetailsList(moviesDetailsList);
                     moviesListBinding.setIsLoading(false);
                 }
