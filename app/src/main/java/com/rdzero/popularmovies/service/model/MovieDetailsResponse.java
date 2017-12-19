@@ -1,18 +1,15 @@
 package com.rdzero.popularmovies.service.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+//TODO https://stackoverflow.com/questions/23070298/get-nested-json-object-with-gson-using-retrofit
+
 @Generated("com.robohorse.robopojogenerator")
-public class DetailsResponse {
+public class MovieDetailsResponse {
     @SerializedName("page")
     private int page;
 
@@ -20,7 +17,7 @@ public class DetailsResponse {
     private int totalPages;
 
     @SerializedName("results")
-    private List<MoviesDetails> results;
+    private List<MovieDetails> results;
 
     @SerializedName("total_results")
     private int totalResults;
@@ -41,11 +38,11 @@ public class DetailsResponse {
         return totalPages;
     }
 
-    public void setResults(List<MoviesDetails> results) {
+    public void setResults(List<MovieDetails> results) {
         this.results = results;
     }
 
-    public List<MoviesDetails> getResults() {
+    public List<MovieDetails> getResults() {
         return results;
     }
 

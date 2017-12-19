@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MoviesDetails"/>
+        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MovieDetails"/>
+        <variable name="movieReviews" type="com.rdzero.popularmovies.service.model.MovieReviews"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".view.ui.ScrollingMovieDetailActivity">
+        tools:context=".view.ui.ScrollingMovieDetailsActivity">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/movie_detail_app_bar"
@@ -56,6 +57,6 @@
 
         <include
             android:id="@+id/movie_detail_content_scrolling_include"
-            layout="@layout/content_scrolling_movie_detail" />
+            layout="@layout/activity_scrolling_movie_details_content" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

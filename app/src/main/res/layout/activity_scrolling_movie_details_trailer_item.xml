@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="movieTrailers" type="com.rdzero.popularmovies.service.model.MovieTrailers"/>
+        <variable name="trailerCallback" type="com.rdzero.popularmovies.view.callback.MovieTrailerClickCallback"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        android:onClick="@{() ->  trailerCallback.onTrailerClick(movieTrailers)}">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/ic_subscriptions_24dp"/>
+        <TextView
+            android:id="@+id/movie_trailer_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{movieTrailers.name}"/>
+    </LinearLayout>
+</layout>

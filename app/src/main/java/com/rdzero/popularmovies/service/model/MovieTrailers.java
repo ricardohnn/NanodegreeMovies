@@ -1,10 +1,15 @@
 package com.rdzero.popularmovies.service.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 @Generated("com.robohorse.robopojogenerator")
-public class MovieTrailers {
+public class MovieTrailers implements Parcelable {
 
 	@SerializedName("site")
 	private String site;
@@ -107,5 +112,47 @@ public class MovieTrailers {
 			",iso_639_1 = '" + iso6391 + '\'' + 
 			",key = '" + key + '\'' + 
 			"}";
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int i) {
+		dest.writeString(site);
+		dest.writeInt(size);
+		dest.writeString(iso31661);
+		dest.writeString(name);
+		dest.writeString(id);
+		dest.writeString(type);
+		dest.writeString(iso6391);
+		dest.writeString(key);
+
+	}
+
+	private MovieTrailers(Parcel in) {
+		this.site = in.readString();
+		this.size = in.readInt();
+		this.iso31661 = in.readString();
+		this.name = in.readString();
+		this.id = in.readString();
+		this.type = in.readString();
+		this.iso6391 = in.readString();
+		this.key = in.readString();
+	}
+
+	public static final Parcelable.Creator<MovieTrailers>
+			CREATOR = new Parcelable.Creator<MovieTrailers>() {
+		@Override
+		public MovieTrailers createFromParcel(Parcel in) {
+			return new MovieTrailers(in);
 		}
+
+		@Override
+		public MovieTrailers[] newArray(int size) {
+			return new MovieTrailers[size];
+		}
+	};
 }

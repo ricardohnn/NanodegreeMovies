@@ -5,14 +5,13 @@ import android.os.Parcelable;
 
 import javax.annotation.Generated;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Generated("com.robohorse.robopojogenerator")
-public class MoviesDetails implements Parcelable {
+public class MovieDetails implements Parcelable {
 
     @SerializedName("overview")
     private String overview;
@@ -171,7 +170,7 @@ public class MoviesDetails implements Parcelable {
     @Override
     public String toString() {
         return
-                "MoviesDetails{" +
+                "MovieDetails{" +
                         "overview = '" + overview + '\'' +
                         ",original_language = '" + originalLanguage + '\'' +
                         ",original_title = '" + originalTitle + '\'' +
@@ -212,7 +211,7 @@ public class MoviesDetails implements Parcelable {
         dest.writeInt(voteCount);
     }
 
-    private MoviesDetails(Parcel in) {
+    private MovieDetails(Parcel in) {
         this.overview = in.readString();
         this.originalLanguage = in.readString();
         this.originalTitle = in.readString();
@@ -230,16 +229,16 @@ public class MoviesDetails implements Parcelable {
         this.voteCount = in.readInt();
     }
 
-    public static final Parcelable.Creator<MoviesDetails>
-            CREATOR = new Parcelable.Creator<MoviesDetails>() {
+    public static final Parcelable.Creator<MovieDetails>
+            CREATOR = new Parcelable.Creator<MovieDetails>() {
         @Override
-        public MoviesDetails createFromParcel(Parcel in) {
-            return new MoviesDetails(in);
+        public MovieDetails createFromParcel(Parcel in) {
+            return new MovieDetails(in);
         }
 
         @Override
-        public MoviesDetails[] newArray(int size) {
-            return new MoviesDetails[size];
+        public MovieDetails[] newArray(int size) {
+            return new MovieDetails[size];
         }
     };
 }

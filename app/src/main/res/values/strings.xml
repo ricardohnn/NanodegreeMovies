@@ -97,4 +97,7 @@
     <string name="release_date">RELEASE DATE</string>
     <string name="rating">RATING</string>
     <string name="movie_poster">movie poster</string>
+    <string name="reviews">REVIEWS</string>
+    <string name="review_author">AUTHOR</string>
+    <string name="trailers">TRAILERS</string>
 </resources>

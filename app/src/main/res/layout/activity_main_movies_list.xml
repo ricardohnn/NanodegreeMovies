@@ -9,17 +9,17 @@
     </data>
 
     <FrameLayout
-        android:id="@+id/movies_main_activity"
+        android:id="@+id/movies_list_main_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.MainActivity">
+        tools:context=".view.ui.MoviesListMainActivity">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/movies_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="GridLayoutManager"
-            app:spanCount="4"
+            app:spanCount="2"
             android:background="@color/black"/>
         <FrameLayout
             android:layout_width="match_parent"

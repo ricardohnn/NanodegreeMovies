@@ -9,4 +9,9 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="movie_detail_content_poster_iv_margin">8dp</dimen>
     <dimen name="fixed_text_size_item">16sp</dimen>
+    <dimen name="fixed_text_review_size_item">14sp</dimen>
+    <dimen name="author_review_margin">16dp</dimen>
+    <dimen name="review_padding_start">8dp</dimen>
+    <dimen name="review_padding_end">8dp</dimen>
+    <dimen name="review_margin_bottom">2dp</dimen>
 </resources>

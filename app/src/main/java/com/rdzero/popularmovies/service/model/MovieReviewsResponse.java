@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class ReviewsResponse{
+public class MovieReviewsResponse {
 
 	@SerializedName("id")
 	private int id;
@@ -65,7 +65,7 @@ public class ReviewsResponse{
 	@Override
  	public String toString(){
 		return 
-			"ReviewsResponse{" + 
+			"MovieReviewsResponse{" +
 			"id = '" + id + '\'' + 
 			",page = '" + page + '\'' + 
 			",total_pages = '" + totalPages + '\'' + 

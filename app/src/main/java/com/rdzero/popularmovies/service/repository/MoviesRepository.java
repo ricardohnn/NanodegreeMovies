@@ -6,12 +6,12 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.rdzero.popularmovies.BuildConfig;
+import com.rdzero.popularmovies.service.model.MovieDetails;
 import com.rdzero.popularmovies.service.model.MovieReviews;
+import com.rdzero.popularmovies.service.model.MovieReviewsResponse;
 import com.rdzero.popularmovies.service.model.MovieTrailers;
-import com.rdzero.popularmovies.service.model.MoviesDetails;
-import com.rdzero.popularmovies.service.model.DetailsResponse;
-import com.rdzero.popularmovies.service.model.ReviewsResponse;
-import com.rdzero.popularmovies.service.model.TrailersResponse;
+import com.rdzero.popularmovies.service.model.MovieTrailersResponse;
+import com.rdzero.popularmovies.service.model.MovieDetailsResponse;
 
 import java.io.IOException;
 import java.util.List;
@@ -66,63 +66,60 @@ public class MoviesRepository {
         return moviesRepository;
     }
 
-    public LiveData<List<MoviesDetails>> getMoviesList(String searchType) {
-        final MutableLiveData<List<MoviesDetails>> data = new MutableLiveData<>();
+    public LiveData<List<MovieDetails>> getMoviesList(String searchType) {
+        final MutableLiveData<List<MovieDetails>> data = new MutableLiveData<>();
 
-        tmdbService.getMoviesList(searchType).enqueue(new Callback<DetailsResponse>() {
+        tmdbService.getMoviesList(searchType).enqueue(new Callback<MovieDetailsResponse>() {
             @Override
-            public void onResponse(Call<DetailsResponse> call, Response<DetailsResponse> response) {
-                Log.d("NAKAi", response.body().toString());
+            public void onResponse(Call<MovieDetailsResponse> call, Response<MovieDetailsResponse> response) {
                 data.setValue(response.body().getResults());
             }
 
             @Override
-            public void onFailure(Call<DetailsResponse> call, Throwable t) {
+            public void onFailure(Call<MovieDetailsResponse> call, Throwable t) {
                 // TODO Improve error handling
                 data.setValue(null);
-                Log.d("NAKAe", "error" + t.toString());
+                Log.d("ERROR", "Failed handler: " + t.toString());
             }
         });
 
         return data;
     }
 
-    public LiveData<List<MovieReviews>> getMovieReviews(String movieId) {
+    public LiveData<List<MovieReviews>> getMovieReviews(int movieId) {
         final MutableLiveData<List<MovieReviews>> data = new MutableLiveData<>();
 
-        tmdbService.getMovieReviews(movieId).enqueue(new Callback<ReviewsResponse>() {
+        tmdbService.getMovieReviews(movieId).enqueue(new Callback<MovieReviewsResponse>() {
             @Override
-            public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
+            public void onResponse(Call<MovieReviewsResponse> call, Response<MovieReviewsResponse> response) {
                 data.setValue(response.body().getResults());
-                Log.d("NAKAi", data.getValue().toString());
             }
 
             @Override
-            public void onFailure(Call<ReviewsResponse> call, Throwable t) {
+            public void onFailure(Call<MovieReviewsResponse> call, Throwable t) {
                 // TODO Improve error handling
                 data.setValue(null);
-                Log.d("NAKAe", "error" + t.toString());
+                Log.d("ERROR", "Failed handler: " + t.toString());
             }
         });
 
         return data;
     }
 
-    public LiveData<List<MovieTrailers>> getMovieTrailers(String movieId) {
+    public LiveData<List<MovieTrailers>> getMovieTrailers(int movieId) {
         final MutableLiveData<List<MovieTrailers>> data = new MutableLiveData<>();
 
-        tmdbService.getMovieTrailers(movieId).enqueue(new Callback<TrailersResponse>() {
+        tmdbService.getMovieTrailers(movieId).enqueue(new Callback<MovieTrailersResponse>() {
             @Override
-            public void onResponse(Call<TrailersResponse> call, Response<TrailersResponse> response) {
-                //data.setValue(response.body().getResults());
-                Log.d("NAKAi", data.getValue().toString());
+            public void onResponse(Call<MovieTrailersResponse> call, Response<MovieTrailersResponse> response) {
+                data.setValue(response.body().getResults());
             }
 
             @Override
-            public void onFailure(Call<TrailersResponse> call, Throwable t) {
+            public void onFailure(Call<MovieTrailersResponse> call, Throwable t) {
                 // TODO Improve error handling
                 data.setValue(null);
-                Log.d("NAKAe", "error" + t.toString());
+                Log.d("ERROR", "Failed handler: " + t.toString());
             }
         });
 

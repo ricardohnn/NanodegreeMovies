@@ -12,13 +12,13 @@ import java.util.List;
 public class MovieTrailersViewModel extends AndroidViewModel{
     private LiveData<List<MovieTrailers>> movieTrailersObservable;
 
-    public MovieTrailersViewModel(Application application, String movieId) {
+    public MovieTrailersViewModel(Application application, int movieId) {
         super(application);
         movieTrailersObservable = MoviesRepository.getInstance().getMovieTrailers(movieId);
     }
 
-    public LiveData<List<MovieTrailers>> getMoviesObservable(String movieId){
-        if (movieId != null && !("".equals(movieId)))
+    public LiveData<List<MovieTrailers>> getMovieTrailersObservable(int movieId){
+        if (movieId > -1)
             movieTrailersObservable = MoviesRepository.getInstance().getMovieTrailers(movieId);
         return movieTrailersObservable;
     }

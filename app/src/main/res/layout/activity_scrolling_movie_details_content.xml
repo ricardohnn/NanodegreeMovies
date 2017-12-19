@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MoviesDetails"/>
+        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MovieDetails"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.rdzero.popularmovies.view.ui.ScrollingMovieDetailActivity"
-        tools:showIn="@layout/activity_scrolling_movie_detail">
+        tools:context="com.rdzero.popularmovies.view.ui.ScrollingMovieDetailsActivity"
+        tools:showIn="@layout/activity_scrolling_movie_details">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,8 +86,47 @@
                 android:textSize="16sp"
                 android:layout_gravity="center_vertical|start"
                 android:gravity="start"
-                android:text="@{movieDetails.overview}" />
+                android:text="@{movieDetails.overview.toString()}" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textSize="@dimen/fixed_text_size_item"
+                android:textStyle="bold"
+                android:text="@string/trailers" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/movie_trailers_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:background="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textSize="@dimen/fixed_text_size_item"
+                android:textStyle="bold"
+                android:text="@string/reviews" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/movie_reviews_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:background="@color/grey"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </layout>

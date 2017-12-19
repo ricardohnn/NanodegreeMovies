@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MoviesDetails"/>
+        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MovieDetails"/>
         <variable name="callback" type="com.rdzero.popularmovies.view.callback.MovieClickCallback"/>
     </data>
 

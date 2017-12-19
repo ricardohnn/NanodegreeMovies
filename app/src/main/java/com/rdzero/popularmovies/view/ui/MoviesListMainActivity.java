@@ -14,20 +14,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rdzero.popularmovies.R;
-import com.rdzero.popularmovies.databinding.MoviesListBinding;
-import com.rdzero.popularmovies.service.model.MoviesDetails;
+import com.rdzero.popularmovies.databinding.ActivityMainMoviesListBinding;
+import com.rdzero.popularmovies.service.model.MovieDetails;
 import com.rdzero.popularmovies.view.adapter.MoviesAdapter;
 import com.rdzero.popularmovies.view.callback.MovieClickCallback;
-import com.rdzero.popularmovies.viewmodel.MoviesViewModel;
+import com.rdzero.popularmovies.viewmodel.MovieDetailsViewModel;
 
 import java.util.List;
 
-public class MainActivity extends LifecycleActivity {
+public class MoviesListMainActivity extends LifecycleActivity {
 
-    private MoviesListBinding moviesListBinding;
+    private ActivityMainMoviesListBinding moviesListBinding;
     private MoviesAdapter moviesAdapter;
-    private List<MoviesDetails> moviesDetailsList;
-    private MoviesViewModel viewModel;
+    private MovieDetailsViewModel viewModel;
     private boolean topRatedSelected = false;
     private final static String TOP_RATED = "top_rated";
     private final static String POPULAR = "popular";
@@ -42,34 +41,34 @@ public class MainActivity extends LifecycleActivity {
             topRatedSelected = savedInstanceState.getBoolean(TOP_RATED);
         }
 
-        moviesListBinding = DataBindingUtil.setContentView(this, R.layout.movies_list);
+        moviesListBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_movies_list);
 
         moviesAdapter = new MoviesAdapter(projectClickCallback);
         moviesListBinding.moviesList.setAdapter(moviesAdapter);
         moviesListBinding.setIsLoading(true);
 
-        viewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
         observeViewModel(viewModel);
     }
 
-    private void observeViewModel(MoviesViewModel viewModel) {
-        viewModel.getMoviesObservable(null).observe(this, new Observer<List<MoviesDetails>>() {
+    private void observeViewModel(MovieDetailsViewModel viewModel) {
+        viewModel.getMovieDetailsObservable(null).observe(this, new Observer<List<MovieDetails>>() {
             @Override
-            public void onChanged(@Nullable List<MoviesDetails> moviesDetailsList) {
-                if (moviesDetailsList != null) {
-                    moviesAdapter.setMoviesDetailsList(moviesDetailsList);
+            public void onChanged(@Nullable List<MovieDetails> movieDetailsList) {
+                if (movieDetailsList != null) {
+                    moviesAdapter.setMoviesDetailsList(movieDetailsList);
                     moviesListBinding.setIsLoading(false);
                 }
             }
         });
     }
 
-    private void searchNewObservableViewModel(MoviesViewModel viewModel, String searchType) {
-        viewModel.getMoviesObservable(searchType).observe(this, new Observer<List<MoviesDetails>>() {
+    private void searchNewObservableViewModel(MovieDetailsViewModel viewModel, String searchType) {
+        viewModel.getMovieDetailsObservable(searchType).observe(this, new Observer<List<MovieDetails>>() {
             @Override
-            public void onChanged(@Nullable List<MoviesDetails> moviesDetailsList) {
-                if (moviesDetailsList != null) {
-                    moviesAdapter.setMoviesDetailsList(moviesDetailsList);
+            public void onChanged(@Nullable List<MovieDetails> movieDetailsList) {
+                if (movieDetailsList != null) {
+                    moviesAdapter.setMoviesDetailsList(movieDetailsList);
                     moviesListBinding.setIsLoading(false);
                 }
             }
@@ -78,10 +77,10 @@ public class MainActivity extends LifecycleActivity {
 
     private final MovieClickCallback projectClickCallback = new MovieClickCallback() {
         @Override
-        public void onClick(MoviesDetails moviesDetails) {
+        public void onClick(MovieDetails movieDetails) {
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                Intent intent = new Intent(MainActivity.this, ScrollingMovieDetailActivity.class);
-                intent.putExtra("movieDetails", moviesDetails);
+                Intent intent = new Intent(MoviesListMainActivity.this, ScrollingMovieDetailsActivity.class);
+                intent.putExtra("movieDetails", movieDetails);
                 context.startActivity(intent);
             }
         }
