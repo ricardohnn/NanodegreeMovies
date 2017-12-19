@@ -5,6 +5,7 @@ import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -18,6 +19,8 @@ import android.util.Log;
 
 import com.rdzero.popularmovies.R;
 import com.rdzero.popularmovies.databinding.ActivityScrollingMovieDetailsBinding;
+import com.rdzero.popularmovies.service.localDB.FavoriteMovieDataManager;
+import com.rdzero.popularmovies.service.localDB.FavoriteMoviesContract;
 import com.rdzero.popularmovies.service.model.MovieDetails;
 import com.rdzero.popularmovies.service.model.MovieReviews;
 import com.rdzero.popularmovies.service.model.MovieTrailers;
@@ -33,7 +36,6 @@ import java.util.List;
 
 public class ScrollingMovieDetailsActivity extends AppCompatActivity {
 
-    private ActivityScrollingMovieDetailsBinding binding;
     private MovieDetails movieDetails;
     private MovieReviewsAdapter movieReviewsAdapter;
     private MovieTrailersAdapter movieTrailersAdapter;
@@ -54,6 +56,20 @@ public class ScrollingMovieDetailsActivity extends AppCompatActivity {
         public void onTrailerClick(MovieTrailers movieTrailers) {
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                 watchYoutubeVideo(context, movieTrailers.getId());
+                ContentValues initialValues = new ContentValues();
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_ID, movieDetails.getId());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_TITLE, movieDetails.getTitle());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_ORIGINAL_TITLE, movieDetails.getOriginalTitle());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_POSTER_PATH, movieDetails.getPosterPath());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_OVERVIEW, movieDetails.getOverview());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_RELEASE_DATE, movieDetails.getReleaseDate());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_POPULARITY, movieDetails.getPopularity());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_VOTE_AVERAGE, movieDetails.getVoteAverage());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_VOTE_COUNT, movieDetails.getVoteCount());
+                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_FAVORITE, true);
+
+                Uri contentUri = Uri.withAppendedPath(FavoriteMovieDataManager.CONTENT_URI, FavoriteMoviesContract.MovieFavoriteEntry.TABLE_NAME);
+                Uri resultUri = context.getContentResolver().insert(contentUri, initialValues);
             }
         }
     };
@@ -71,7 +87,7 @@ public class ScrollingMovieDetailsActivity extends AppCompatActivity {
         MovieTrailersViewModel movieTrailersViewModel = ViewModelProviders.of(this, new MovieTrailersViewModelFactory(this.getApplication(), movieDetails.getId())).get(MovieTrailersViewModel.class);
         observeTrailersViewModel(movieTrailersViewModel);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_scrolling_movie_details);
+        ActivityScrollingMovieDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_scrolling_movie_details);
         binding.setMovieDetails(movieDetails);
         binding.movieDetailContentScrollingInclude.setMovieDetails(movieDetails);
 
