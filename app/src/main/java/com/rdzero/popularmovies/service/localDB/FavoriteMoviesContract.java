@@ -28,7 +28,6 @@ public final class FavoriteMoviesContract {
         public static final String COLUMN_POPULARITY = "popularity";
         public static final String COLUMN_VOTE_AVERAGE = "vote_average";
         public static final String COLUMN_VOTE_COUNT = "vote_count";
-        public static final String COLUMN_FAVORITE = "favorite";
 
         public static final Uri URI = CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
 

@@ -21,8 +21,7 @@ public class FavoriteMoviesDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         final String SQL_CREATE_FAVORITE_MOVIES_TABLE = "CREATE TABLE " + MovieFavoriteEntry.TABLE_NAME + " (" +
-                MovieFavoriteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                MovieFavoriteEntry.COLUMN_ID + " INTEGER NOT NULL, " +
+                MovieFavoriteEntry.COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_TITLE + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_ORIGINAL_TITLE + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_POSTER_PATH + " STRING NOT NULL, " +
@@ -30,8 +29,7 @@ public class FavoriteMoviesDBHelper extends SQLiteOpenHelper {
                 MovieFavoriteEntry.COLUMN_RELEASE_DATE + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_POPULARITY + " FLOAT NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_VOTE_AVERAGE + " FLOAT NOT NULL, " +
-                MovieFavoriteEntry.COLUMN_VOTE_COUNT + " STRING NOT NULL, " +
-                MovieFavoriteEntry.COLUMN_FAVORITE + " BOOL NOT NULL " +
+                MovieFavoriteEntry.COLUMN_VOTE_COUNT + " STRING NOT NULL " +
                 "); ";
 
         database.execSQL(SQL_CREATE_FAVORITE_MOVIES_TABLE);

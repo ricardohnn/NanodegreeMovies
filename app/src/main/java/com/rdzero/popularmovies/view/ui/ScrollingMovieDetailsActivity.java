@@ -1,26 +1,25 @@
 package com.rdzero.popularmovies.view.ui;
 
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.generated.callback.OnClickListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.rdzero.popularmovies.R;
 import com.rdzero.popularmovies.databinding.ActivityScrollingMovieDetailsBinding;
-import com.rdzero.popularmovies.service.localDB.FavoriteMovieDataManager;
-import com.rdzero.popularmovies.service.localDB.FavoriteMoviesContract;
 import com.rdzero.popularmovies.service.model.MovieDetails;
 import com.rdzero.popularmovies.service.model.MovieReviews;
 import com.rdzero.popularmovies.service.model.MovieTrailers;
@@ -33,6 +32,8 @@ import com.rdzero.popularmovies.viewmodel.MovieTrailersViewModel;
 import com.rdzero.popularmovies.viewmodel.MovieTrailersViewModelFactory;
 
 import java.util.List;
+
+import static com.rdzero.popularmovies.service.localDB.FavoriteMovieDataManager.insertFavoriteMovie;
 
 public class ScrollingMovieDetailsActivity extends AppCompatActivity {
 
@@ -51,25 +52,12 @@ public class ScrollingMovieDetailsActivity extends AppCompatActivity {
             context.startActivity(webIntent);
         }
     }
+
     private final MovieTrailerClickCallback trailerClickCallback = new MovieTrailerClickCallback() {
         @Override
         public void onTrailerClick(MovieTrailers movieTrailers) {
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                 watchYoutubeVideo(context, movieTrailers.getId());
-                ContentValues initialValues = new ContentValues();
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_ID, movieDetails.getId());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_TITLE, movieDetails.getTitle());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_ORIGINAL_TITLE, movieDetails.getOriginalTitle());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_POSTER_PATH, movieDetails.getPosterPath());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_OVERVIEW, movieDetails.getOverview());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_RELEASE_DATE, movieDetails.getReleaseDate());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_POPULARITY, movieDetails.getPopularity());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_VOTE_AVERAGE, movieDetails.getVoteAverage());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_VOTE_COUNT, movieDetails.getVoteCount());
-                initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_FAVORITE, true);
-
-                Uri contentUri = Uri.withAppendedPath(FavoriteMovieDataManager.CONTENT_URI, FavoriteMoviesContract.MovieFavoriteEntry.TABLE_NAME);
-                Uri resultUri = context.getContentResolver().insert(contentUri, initialValues);
             }
         }
     };
@@ -101,9 +89,15 @@ public class ScrollingMovieDetailsActivity extends AppCompatActivity {
         movieTrailersAdapter = new MovieTrailersAdapter(trailerClickCallback);
         movieTrailersView.setAdapter(movieTrailersAdapter);
 
+        LinearLayout likeBtn = findViewById(R.id.like_button);
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertFavoriteMovie(movieDetails,context);
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.movie_detail_toolbar);
-
         setSupportActionBar(toolbar);
     }
 

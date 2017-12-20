@@ -75,6 +75,29 @@
                         app:mrb_progressBackgroundTint="@color/dark_pink_900"
                         android:rating="@{Float.valueOf(movieDetails.voteAverage/2)}"/>
 
+                    <LinearLayout
+                        android:id="@+id/like_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_favorite_24dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="@dimen/fixed_text_size_item"
+                            android:textStyle="bold"
+                            android:text="LIKE IT!"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <TextView
@@ -105,8 +128,7 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                android:background="@color/grey"/>
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
             <TextView
                 android:layout_width="wrap_content"

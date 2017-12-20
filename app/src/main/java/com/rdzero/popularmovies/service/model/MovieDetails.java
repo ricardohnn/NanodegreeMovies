@@ -55,6 +55,9 @@ public class MovieDetails implements Parcelable {
     @SerializedName("vote_count")
     private int voteCount;
 
+    public MovieDetails() {
+    }
+
     public void setOverview(String overview) {
         this.overview = overview;
     }
@@ -211,7 +214,7 @@ public class MovieDetails implements Parcelable {
         dest.writeInt(voteCount);
     }
 
-    private MovieDetails(Parcel in) {
+    public MovieDetails(Parcel in) {
         this.overview = in.readString();
         this.originalLanguage = in.readString();
         this.originalTitle = in.readString();
