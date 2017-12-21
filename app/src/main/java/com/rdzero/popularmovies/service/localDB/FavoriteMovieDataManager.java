@@ -33,6 +33,7 @@ public class FavoriteMovieDataManager extends ContentProvider {
             MovieFavoriteEntry.COLUMN_TITLE,
             MovieFavoriteEntry.COLUMN_ORIGINAL_TITLE,
             MovieFavoriteEntry.COLUMN_POSTER_PATH,
+            MovieFavoriteEntry.COLUMN_BACKDROP_PATH,
             MovieFavoriteEntry.COLUMN_OVERVIEW,
             MovieFavoriteEntry.COLUMN_RELEASE_DATE,
             MovieFavoriteEntry.COLUMN_POPULARITY,
@@ -101,6 +102,7 @@ public class FavoriteMovieDataManager extends ContentProvider {
         initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_TITLE, movieDetails.getTitle());
         initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_ORIGINAL_TITLE, movieDetails.getOriginalTitle());
         initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_POSTER_PATH, movieDetails.getPosterPath());
+        initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_BACKDROP_PATH, movieDetails.getBackdropPath());
         initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_OVERVIEW, movieDetails.getOverview());
         initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_RELEASE_DATE, movieDetails.getReleaseDate());
         initialValues.put(FavoriteMoviesContract.MovieFavoriteEntry.COLUMN_POPULARITY, movieDetails.getPopularity());
@@ -125,26 +127,6 @@ public class FavoriteMovieDataManager extends ContentProvider {
 
         Uri contentUri = Uri.withAppendedPath(FavoriteMovieDataManager.CONTENT_URI, FavoriteMoviesContract.MovieFavoriteEntry.TABLE_NAME);
         return context.getContentResolver().delete(contentUri, MovieFavoriteEntry.COLUMN_ID + " = " + movieDetailsId, null);
-    }
-
-    @TargetApi(Build.VERSION_CODES.O)
-    public static List<MovieDetails> getFavoriteMoviesItem(Context context){
-        List<MovieDetails> movieDetailsList = new ArrayList<>();
-        Uri contentUri = Uri.withAppendedPath(FavoriteMovieDataManager.CONTENT_URI, FavoriteMoviesContract.MovieFavoriteEntry.TABLE_NAME);
-        Cursor cursor = context.getContentResolver().query(
-                contentUri,
-                allColumns,
-                null,
-                null);
-
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
-            MovieDetails movieDetails = cursorToMovieDetails(cursor);
-            movieDetailsList.add(movieDetails);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return movieDetailsList;
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -174,15 +156,15 @@ public class FavoriteMovieDataManager extends ContentProvider {
         movieDetails.setTitle(cursor.getString(1));
         movieDetails.setOriginalTitle(cursor.getString(2));
         movieDetails.setPosterPath(cursor.getString(3));
-        movieDetails.setOverview(cursor.getString(4));
-        movieDetails.setReleaseDate(cursor.getString(5));
-        movieDetails.setPopularity(cursor.getDouble(6));
-        movieDetails.setVoteAverage(cursor.getFloat(7));
-        movieDetails.setVoteCount(cursor.getInt(8));
+        movieDetails.setBackdropPath(cursor.getString(4));
+        movieDetails.setOverview(cursor.getString(5));
+        movieDetails.setReleaseDate(cursor.getString(6));
+        movieDetails.setPopularity(cursor.getDouble(7));
+        movieDetails.setVoteAverage(cursor.getFloat(8));
+        movieDetails.setVoteCount(cursor.getInt(9));
         movieDetails.setOriginalLanguage("");
         movieDetails.setVideo(false);
         movieDetails.setGenreIds(null);
-        movieDetails.setBackdropPath("");
         movieDetails.setAdult(false);
 
         return movieDetails;

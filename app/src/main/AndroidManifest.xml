@@ -21,6 +21,10 @@
             android:name=".view.ui.ScrollingMovieDetailsActivity"
             android:label="@string/title_activity_scrolling_movie_detail"
             android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".view.ui.ScrollingMovieFavoriteDetailsActivity"
+            android:label="@string/title_activity_scrolling_movie_favorite_detail"
+            android:theme="@style/NoActionBar" />
         <provider
             android:authorities="com.rdzero.popularmovies"
             android:name=".service.localDB.FavoriteMovieDataManager"/>

@@ -25,6 +25,7 @@ public class FavoriteMoviesDBHelper extends SQLiteOpenHelper {
                 MovieFavoriteEntry.COLUMN_TITLE + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_ORIGINAL_TITLE + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_POSTER_PATH + " STRING NOT NULL, " +
+                MovieFavoriteEntry.COLUMN_BACKDROP_PATH + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_OVERVIEW + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_RELEASE_DATE + " STRING NOT NULL, " +
                 MovieFavoriteEntry.COLUMN_POPULARITY + " FLOAT NOT NULL, " +

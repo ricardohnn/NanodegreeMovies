@@ -22,12 +22,18 @@ import com.rdzero.popularmovies.viewmodel.MovieDetailsViewModel;
 
 import java.util.List;
 
+import static com.rdzero.popularmovies.service.localDB.FavoriteMovieDataManager.getFavoriteMoviesList;
+
 public class MoviesListMainActivity extends LifecycleActivity {
 
     private ActivityMainMoviesListBinding moviesListBinding;
     private MoviesAdapter moviesAdapter;
     private MovieDetailsViewModel viewModel;
-    private boolean topRatedSelected = false;
+    private final static String MOVIE_LIST_TYPE = "movie_list_type";
+    private final static int TYPE_TOP_RATED = 0;
+    private final static int TYPE_POPULAR = 1;
+    private final static int TYPE_FAVORITE = 2;
+    private int movie_list_type = TYPE_POPULAR;
     private final static String TOP_RATED = "top_rated";
     private final static String POPULAR = "popular";
     private Context context;
@@ -38,7 +44,9 @@ public class MoviesListMainActivity extends LifecycleActivity {
         context = this;
 
         if (savedInstanceState != null){
-            topRatedSelected = savedInstanceState.getBoolean(TOP_RATED);
+            movie_list_type = savedInstanceState.getInt(MOVIE_LIST_TYPE);
+        } else {
+            movie_list_type = TYPE_POPULAR;
         }
 
         moviesListBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_movies_list);
@@ -48,7 +56,16 @@ public class MoviesListMainActivity extends LifecycleActivity {
         moviesListBinding.setIsLoading(true);
 
         viewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
-        observeViewModel(viewModel);
+
+        if (movie_list_type == TYPE_FAVORITE){
+            List<MovieDetails> movieDetailsList = getFavoriteMoviesList(this);
+            if (movieDetailsList != null) {
+                moviesAdapter.setMoviesDetailsList(movieDetailsList);
+                moviesListBinding.setIsLoading(false);
+            }
+        } else{
+            observeViewModel(viewModel);
+        }
     }
 
     private void observeViewModel(MovieDetailsViewModel viewModel) {
@@ -75,11 +92,23 @@ public class MoviesListMainActivity extends LifecycleActivity {
         });
     }
 
+    private void loadFavoriteMovies(){
+        List<MovieDetails> movieDetailsList = getFavoriteMoviesList(this);
+        if (movieDetailsList != null) {
+            moviesAdapter.setMoviesDetailsList(movieDetailsList);
+            moviesListBinding.setIsLoading(false);
+        }
+    }
+
     private final MovieClickCallback projectClickCallback = new MovieClickCallback() {
         @Override
         public void onClick(MovieDetails movieDetails) {
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                Intent intent = new Intent(MoviesListMainActivity.this, ScrollingMovieDetailsActivity.class);
+                Intent intent;
+                if(movie_list_type == TYPE_FAVORITE)
+                    intent = new Intent(MoviesListMainActivity.this, ScrollingMovieFavoriteDetailsActivity.class);
+                else
+                    intent = new Intent(MoviesListMainActivity.this, ScrollingMovieDetailsActivity.class);
                 intent.putExtra("movieDetails", movieDetails);
                 context.startActivity(intent);
             }
@@ -89,10 +118,6 @@ public class MoviesListMainActivity extends LifecycleActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main_search_type_menu,menu);
-        if (topRatedSelected){
-            MenuItem menuItem = menu.findItem(R.id.top_rated_item);
-            menuItem.setChecked(true);
-        }
         return true;
     }
 
@@ -101,15 +126,18 @@ public class MoviesListMainActivity extends LifecycleActivity {
         switch (item.getItemId()){
             case R.id.top_rated_item:
                 moviesListBinding.setIsLoading(true);
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                    topRatedSelected = false;
-                    searchNewObservableViewModel(viewModel, POPULAR);
-                } else {
-                    item.setChecked(true);
-                    topRatedSelected = true;
-                    searchNewObservableViewModel(viewModel, TOP_RATED);
-                }
+                movie_list_type = TYPE_TOP_RATED;
+                searchNewObservableViewModel(viewModel, TOP_RATED);
+                break;
+            case R.id.popular_item:
+                moviesListBinding.setIsLoading(true);
+                movie_list_type = TYPE_POPULAR;
+                searchNewObservableViewModel(viewModel, POPULAR);
+                break;
+            case R.id.favorite_item:
+                moviesListBinding.setIsLoading(true);
+                movie_list_type = TYPE_FAVORITE;
+                loadFavoriteMovies();
                 break;
         }
         return true;
@@ -117,7 +145,7 @@ public class MoviesListMainActivity extends LifecycleActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putBoolean(TOP_RATED, topRatedSelected);
+        savedInstanceState.putInt(MOVIE_LIST_TYPE, movie_list_type);
         super.onSaveInstanceState(savedInstanceState);
     }
 }

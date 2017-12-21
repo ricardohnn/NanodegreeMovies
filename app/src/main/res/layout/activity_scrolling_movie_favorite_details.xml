@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MovieDetails"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".view.ui.ScrollingMovieDetailsActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/movie_detail_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/movie_detail_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:id="@+id/movie_detail_background_poster_image"
+                    android:contentDescription="@string/movie_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{movieDetails.backdropPath}"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black50" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/movie_detail_toolbar"
+                    android:title="@{movieDetails.title}"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/PopupOverlay">
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <include
+            android:id="@+id/movie_favorite_detail_content_scrolling_include"
+            layout="@layout/activity_scrolling_movie_favorite_details_content" />
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

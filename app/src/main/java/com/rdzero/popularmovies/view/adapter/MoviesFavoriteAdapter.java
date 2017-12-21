@@ -8,24 +8,18 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.rdzero.popularmovies.R;
+import com.rdzero.popularmovies.databinding.ActivityMainMoviesFavoriteListItemBinding;
 import com.rdzero.popularmovies.databinding.ActivityMainMoviesListItemBinding;
 import com.rdzero.popularmovies.service.model.MovieDetails;
 import com.rdzero.popularmovies.view.callback.MovieClickCallback;
 
 import java.util.List;
 
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
+public class MoviesFavoriteAdapter extends RecyclerView.Adapter<MoviesFavoriteAdapter.MovieFavoriteViewHolder> {
 
     private List<? extends MovieDetails> moviesDetailsList;
 
-    @Nullable
-    private final MovieClickCallback movieClickCallback;
-
-    public MoviesAdapter(@Nullable MovieClickCallback movieClickCallback) {
-        this.movieClickCallback = movieClickCallback;
-    }
-
-    public void setMoviesDetailsList(final List<? extends MovieDetails> moviesDetailsList) {
+    public void setMoviesFavoriteList(final List<? extends MovieDetails> moviesDetailsList) {
         if (this.moviesDetailsList == null) {
             this.moviesDetailsList = moviesDetailsList;
             notifyItemRangeInserted(0, moviesDetailsList.size());
@@ -33,7 +27,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
-                    return MoviesAdapter.this.moviesDetailsList.size();
+                    return MoviesFavoriteAdapter.this.moviesDetailsList.size();
                 }
 
                 @Override
@@ -43,19 +37,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return MoviesAdapter.this.moviesDetailsList.get(oldItemPosition).getId() ==
+                    return MoviesFavoriteAdapter.this.moviesDetailsList.get(oldItemPosition).getId() ==
                             moviesDetailsList.get(newItemPosition).getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    try {
-                        MovieDetails movieDetails = moviesDetailsList.get(newItemPosition);
-                        MovieDetails old = moviesDetailsList.get(oldItemPosition);
-                        return (movieDetails.getId() == old.getId());
-                    } catch (IndexOutOfBoundsException e) {
-                        return false;
-                    }
+                    MovieDetails movieDetails = moviesDetailsList.get(newItemPosition);
+                    MovieDetails old = moviesDetailsList.get(oldItemPosition);
+                    return (movieDetails.getId() == old.getId());
                 }
             });
             this.moviesDetailsList = moviesDetailsList;
@@ -64,19 +54,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     }
 
     @Override
-    public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ActivityMainMoviesListItemBinding binding = DataBindingUtil
+    public MovieFavoriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ActivityMainMoviesFavoriteListItemBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.activity_main_movies_list_item,
+                        R.layout.activity_main_movies_favorite_list_item,
                         parent, false);
 
-        binding.setCallback(movieClickCallback);
-
-        return new MovieViewHolder(binding);
+        return new MovieFavoriteViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(MovieViewHolder holder, int position) {
+    public void onBindViewHolder(MovieFavoriteViewHolder holder, int position) {
         holder.binding.setMovieDetails(moviesDetailsList.get(position));
         holder.binding.executePendingBindings();
     }
@@ -86,11 +74,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return moviesDetailsList == null ? 0 : moviesDetailsList.size();
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder {
+    class MovieFavoriteViewHolder extends RecyclerView.ViewHolder {
 
-        final ActivityMainMoviesListItemBinding binding;
+        final ActivityMainMoviesFavoriteListItemBinding binding;
 
-        private MovieViewHolder(ActivityMainMoviesListItemBinding binding) {
+        private MovieFavoriteViewHolder(ActivityMainMoviesFavoriteListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

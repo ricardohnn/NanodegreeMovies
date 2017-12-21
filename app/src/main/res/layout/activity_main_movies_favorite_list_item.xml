@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="movieDetails" type="com.rdzero.popularmovies.service.model.MovieDetails"/>
+    </data>
+
+    <FrameLayout
+        android:id="@+id/movies_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/movie_favorite_list_item_poster_image"
+            android:contentDescription="@string/movie_poster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:imageUrl="@{movieDetails.posterPath}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/movie_list_item_footer"
+            android:layout_gravity="bottom"
+            android:padding="@dimen/movie_list_item_text_padding"
+            android:background="@color/black50"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/movie_favorite_list_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@{movieDetails.title}"
+                android:textStyle="bold"
+                android:textSize="@dimen/fixed_text_size_item"
+                android:ellipsize="end"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/movie_favorite_list_item_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@{movieDetails.releaseDate.substring(0,4)}"
+                android:textSize="@dimen/movie_list_item_detail_text_size"
+                android:ellipsize="end"
+                android:maxLines="1"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>
